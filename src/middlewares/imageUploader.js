@@ -1,4 +1,4 @@
-import { s3uploader } from "../config/multerConfig"; 
+import { s3uploader } from "../config/multerConfig.js"; 
 
 const imageUploader = (req,res,next)=>{
     const singleUpload = s3uploader.single("image");

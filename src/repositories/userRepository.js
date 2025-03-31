@@ -1,4 +1,4 @@
-import User from "../schema/user";
+import User from "../schema/user.js";
 
 export const createUserRepository = async (username, email, password)=>{
     try {

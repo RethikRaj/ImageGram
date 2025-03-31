@@ -1,4 +1,4 @@
-import { createPostService } from "../services/postService";
+import { createPostService } from "../services/postService.js";
 
 export const createPostController = async (req, res) => {
     const caption = req.body.caption;

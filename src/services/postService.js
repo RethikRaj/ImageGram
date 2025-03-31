@@ -1,4 +1,4 @@
-import { createPostRepository } from "../repositories/postRepository";
+import { createPostRepository } from "../repositories/postRepository.js";
 
 export const createPostService = async (createPostObject)=>{
     const { imageUrl, caption, } = createPostObject; // userId need to be added
