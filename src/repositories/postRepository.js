@@ -1,6 +1,6 @@
 import Post from '../models/Post.js';
 
-export const createPost = async (imageUrl, caption, userId) => {
+export const createPostRepository = async (imageUrl, caption, userId) => {
     try {
         const newPost = await Post.create({ imageUrl, caption, userId });
         return newPost;

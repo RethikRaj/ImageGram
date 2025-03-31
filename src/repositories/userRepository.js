@@ -1,6 +1,6 @@
 import User from "../schema/user";
 
-export const createUser = async (username, email, password)=>{
+export const createUserRepository = async (username, email, password)=>{
     try {
         const newUser = await User.create({username, email, password});
         // or 
