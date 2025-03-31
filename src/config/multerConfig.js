@@ -14,5 +14,6 @@ const storage = multerS3({
 });
 
 export const s3uploader = multer({
-    storage: storage
-}); // s3 uploader is a middleware
+    storage: storage,
+    limits: { fileSize: 5 * 1024 * 1024 }
+}); 
