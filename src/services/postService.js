@@ -1,4 +1,4 @@
-import { createPostRepository, findAllPosts } from "../repositories/postRepository.js";
+import { createPostRepository, deletePostById, findAllPosts } from "../repositories/postRepository.js";
 
 export const createPostService = async (createPostObject)=>{
     const { imageUrl, caption, } = createPostObject; // userId need to be added
@@ -18,3 +18,12 @@ export const getAllPostsService = async () => {
         console.log(error);
     }
 };
+
+export const deletePostService = async (postId)=>{
+    try {
+        const deletedPost = await deletePostById(postId);
+        return deletedPost;
+    } catch (error) {
+        console.log(error);
+    }
+}
