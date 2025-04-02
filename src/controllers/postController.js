@@ -1,4 +1,4 @@
-import { createPostService } from "../services/postService.js";
+import { createPostService, getAllPostsService } from "../services/postService.js";
 
 export const createPostController = async (req, res) => {
     const caption = req.body.caption;
@@ -19,3 +19,15 @@ export const createPostController = async (req, res) => {
         console.log(error);
     }
 }
+
+export const getAllPostsController = async (req, res) => {
+    try {
+        const posts = await getAllPostsService();
+        return res.status(200).json({
+            success: true,
+            posts : posts
+        });
+    } catch (error) {
+        console.log(error);
+    }
+};
