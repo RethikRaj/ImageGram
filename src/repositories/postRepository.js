@@ -18,9 +18,9 @@ export const findPostById = async (postId) => {
     }
 }
 
-export const findAllPosts = async () => {
+export const findAllPosts = async (limit,offset) => {
     try {
-        const posts = await Post.find();
+        const posts = await Post.find().sort({ createdAt: -1 }).skip(offset).limit(limit);
         return posts;
     } catch (error) {
         console.error(error);
