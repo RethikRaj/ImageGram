@@ -1,5 +1,5 @@
 import express from 'express';
-import { createPostController, deletePostController, getAllPostsController } from '../../controllers/postController.js';
+import { createPostController, deletePostController, getAllPostsController, updatePostController } from '../../controllers/postController.js';
 import imageUploader from '../../middlewares/imageUploader.js';
 
 const router = express.Router();
@@ -12,5 +12,8 @@ router.get("/", getAllPostsController);
 
 // delete post
 router.delete("/:id",deletePostController);
+
+// update post
+router.put("/:id", imageUploader, updatePostController);
 
 export default router;

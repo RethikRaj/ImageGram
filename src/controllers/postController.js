@@ -1,4 +1,4 @@
-import { createPostService, deletePostService, getAllPostsService } from "../services/postService.js";
+import { createPostService, deletePostService, getAllPostsService, updatePostService } from "../services/postService.js";
 
 export const createPostController = async (req, res) => {
     const caption = req.body.caption;
@@ -17,6 +17,10 @@ export const createPostController = async (req, res) => {
         });
     } catch (error) {
         console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error",
+        });
     }
 }
 
@@ -55,5 +59,32 @@ export const deletePostController = async (req,res)=>{
         })
     } catch (error) {
         console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error",
+        });
+    }
+}
+
+export const updatePostController = async (req,res)=>{
+    try {
+        const postId = req.params.id;
+        const caption = req.body.caption;
+        const imageUrl = req.file.location;
+        const updatedPost = await updatePostService(postId,{
+            caption,
+            imageUrl
+        })
+        return res.status(200).json({
+            success: true,
+            message: "Post updated successfully",
+            updatedPost : updatedPost
+        })
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error",
+        });
     }
 }

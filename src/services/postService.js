@@ -1,4 +1,4 @@
-import { countPosts, createPostRepository, deletePostById, findAllPosts } from "../repositories/postRepository.js";
+import { countPosts, createPostRepository, deletePostById, findAllPosts, updatePostById } from "../repositories/postRepository.js";
 
 export const createPostService = async (createPostObject)=>{
     const { imageUrl, caption, } = createPostObject; // userId need to be added
@@ -39,6 +39,16 @@ export const deletePostService = async (postId)=>{
         const deletedPost = await deletePostById(postId);
         return deletedPost;
     } catch (error) {
+        console.log(error);
+    }
+}
+
+export const updatePostService = async (postId, updatePostObject)=>{
+    try{
+        const {imageUrl , caption} = updatePostObject;
+        const updatedPost = await updatePostById(postId,imageUrl,caption)
+        return updatedPost;
+    }catch(error){
         console.log(error);
     }
 }
