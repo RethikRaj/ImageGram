@@ -22,13 +22,26 @@ export const createPostController = async (req, res) => {
 
 export const getAllPostsController = async (req, res) => {
     try {
-        const posts = await getAllPostsService();
+        const limit = req.query.limit || 10;
+        const offset = req.query.offset || 0;
+        const {paginatedPosts, totalPosts, totalPage , currentPage, hasNextPage} = await getAllPostsService(limit,offset);
+
         return res.status(200).json({
             success: true,
-            posts : posts
+            message: "Posts fetched successfully",
+            data: paginatedPosts,
+            totalPosts: totalPosts,
+            totalPage: totalPage,
+            currentPage: currentPage,
+            hasNextPage: hasNextPage,
         });
+
     } catch (error) {
         console.log(error);
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error",
+        });
     }
 };
 

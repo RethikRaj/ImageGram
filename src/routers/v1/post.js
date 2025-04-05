@@ -1,6 +1,6 @@
 import express from 'express';
-import { createPostController, deletePostController, getAllPostsController } from '../../controllers/postController';
-import imageUploader from '../../middlewares/imageUploader';
+import { createPostController, deletePostController, getAllPostsController } from '../../controllers/postController.js';
+import imageUploader from '../../middlewares/imageUploader.js';
 
 const router = express.Router();
 

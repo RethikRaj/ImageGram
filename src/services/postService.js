@@ -1,4 +1,4 @@
-import { createPostRepository, deletePostById, findAllPosts } from "../repositories/postRepository.js";
+import { countPosts, createPostRepository, deletePostById, findAllPosts } from "../repositories/postRepository.js";
 
 export const createPostService = async (createPostObject)=>{
     const { imageUrl, caption, } = createPostObject; // userId need to be added
@@ -10,10 +10,25 @@ export const createPostService = async (createPostObject)=>{
     }
 }
 
-export const getAllPostsService = async () => {
+export const getAllPostsService = async (limit , offset) => {
     try{
-        const posts = await findAllPosts();
-        return posts;
+        const paginatedPosts = await findAllPosts(limit , offset);
+
+        const totalPosts = await countPosts();
+
+        const totalPages = Math.ceil(totalPosts / limit);
+        
+        const currentPage = Math.floor(offset / limit) + 1;
+
+        const hasNextPage = currentPage < totalPages;
+
+        return {
+            paginatedPosts,
+            totalPosts,
+            totalPages,
+            currentPage,
+            hasNextPage
+        };
     }catch(error){
         console.log(error);
     }
