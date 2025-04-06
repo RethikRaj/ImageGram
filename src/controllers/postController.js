@@ -52,6 +52,12 @@ export const getAllPostsController = async (req, res) => {
 export const deletePostController = async (req,res)=>{
     try {
         const deletedPost = await deletePostService(req.params.id);
+        if(!deletedPost) {
+            return res.status(404).json({
+                success: false,
+                message: "Post not found",
+            });
+        }
         return res.json({
             success: true,
             message: "Post deleted successfully",
