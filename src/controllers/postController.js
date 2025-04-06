@@ -76,11 +76,13 @@ export const updatePostController = async (req,res)=>{
     try {
         const postId = req.params.id;
         const caption = req.body.caption;
-        const imageUrl = req.file.location;
-        const updatedPost = await updatePostService(postId,{
-            caption,
-            imageUrl
-        })
+        const updateObject = {caption};
+        if(req.file){
+            updateObject.imageUrl = req.file.location;
+        }
+        
+        const updatedPost = await updatePostService(postId,updateObject)
+
         return res.status(200).json({
             success: true,
             message: "Post updated successfully",

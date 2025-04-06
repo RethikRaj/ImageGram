@@ -47,7 +47,8 @@ export const deletePostById = async (postId) => {
 
 export const updatePostById = async (postId, imageUrl, caption, userId)=>{
     try {
-        const updatedPost = await Post.findByIdAndUpdate(postId, { imageUrl, caption, userId });
+        // const updatedPost = await Post.findByIdAndUpdate(postId, { imageUrl, caption, userId }); // This will not return the updated post
+        const updatedPost = await Post.findByIdAndUpdate(postId, { imageUrl, caption, userId }, { new: true }); // This will return the updated post
         return updatedPost;
     } catch (error) {
         console.error(error);
