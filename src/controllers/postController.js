@@ -2,6 +2,12 @@ import { createPostService, deletePostService, getAllPostsService, updatePostSer
 
 export const createPostController = async (req, res) => {
     const caption = req.body.caption;
+    if (!req.file) {
+        return res.status(400).json({
+            success: false,
+            message: "Image is required",
+        });
+    }
     const imageUrl = req.file.location;
 
     try {

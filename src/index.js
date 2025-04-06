@@ -7,6 +7,7 @@ const PORT = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(express.text());
 
 app.use('/api',apiRouter); // Any request starting with /api will be handled by apiRouter.
 

@@ -13,7 +13,16 @@ const storage = multerS3({
     }
 });
 
+const fileFilter = (req,file,cb)=>{
+    if(file.mimetype === "image/jpeg" || file.mimetype === "image/png" || file.mimetype === "image/jpg"){
+        cb(null,true); // accept the file
+    }else{
+        cb(new Error("Invalid file type, only JPEG and PNG are allowed"),false); // reject the file
+    }
+}
+
 export const s3uploader = multer({
     storage: storage,
-    limits: { fileSize: 5 * 1024 * 1024 }
+    limits: { fileSize: 5 * 1024 * 1024 },
+    fileFilter: fileFilter
 }); 
