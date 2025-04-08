@@ -6,10 +6,10 @@ export const createUserRepository = async (username, email, password)=>{
         // or 
         // const user = new User({username, email, password});
         // await user.save();
-
         return newUser;
     } catch (error) {
         console.log(error);
+        throw error;
     }
 }
 
