@@ -4,6 +4,7 @@ import imageUploader from '../../middlewares/imageUploader.js';
 import { validate } from '../../validators/validate.js';
 import { zodPostSchema } from '../../validators/zodPostSchema.js';
 import { isAuthenticated } from '../../middlewares/isAuthenticated.js';
+import { isAdmin } from '../../middlewares/isAdmin.js';
 
 const router = express.Router();
 
@@ -17,6 +18,6 @@ router.get("/", getAllPostsController);
 router.delete("/:id",isAuthenticated,deletePostController);
 
 // update post
-router.put("/:id", isAuthenticated,imageUploader, updatePostController);
+router.put("/:id",isAuthenticated, isAdmin,imageUploader, updatePostController);
 
 export default router;
