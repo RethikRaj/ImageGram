@@ -3,19 +3,20 @@ import { createPostController, deletePostController, getAllPostsController, upda
 import imageUploader from '../../middlewares/imageUploader.js';
 import { validate } from '../../validators/validate.js';
 import { zodPostSchema } from '../../validators/zodPostSchema.js';
+import { isAuthenticated } from '../../middlewares/isAuthenticated.js';
 
 const router = express.Router();
 
 // Create a post
-router.post("/", imageUploader, validate(zodPostSchema), createPostController);
+router.post("/", isAuthenticated,imageUploader, validate(zodPostSchema), createPostController);
 
 // Get all posts
-router.get("/", getAllPostsController);
+router.get("/", isAuthenticated,getAllPostsController);
 
 // delete post
-router.delete("/:id",deletePostController);
+router.delete("/:id", isAuthenticated,deletePostController);
 
 // update post
-router.put("/:id", imageUploader, updatePostController);
+router.put("/:id", isAuthenticated,imageUploader, updatePostController);
 
 export default router;
