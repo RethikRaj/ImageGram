@@ -14,7 +14,7 @@ router.post("/", isAuthenticated,imageUploader, validate(zodPostSchema), createP
 router.get("/", getAllPostsController);
 
 // delete post
-router.delete("/:id", isAuthenticated,deletePostController);
+router.delete("/:id",isAuthenticated,deletePostController);
 
 // update post
 router.put("/:id", isAuthenticated,imageUploader, updatePostController);

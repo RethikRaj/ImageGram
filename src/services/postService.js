@@ -1,4 +1,4 @@
-import { countPosts, createPostRepository, deletePostById, findAllPosts, updatePostById } from "../repositories/postRepository.js";
+import { countPosts, createPostRepository, deletePostById, findAllPosts, findPostById, updatePostById } from "../repositories/postRepository.js";
 
 export const createPostService = async (createPostObject)=>{
     const { imageUrl, caption, user } = createPostObject; 
@@ -34,12 +34,23 @@ export const getAllPostsService = async (limit , offset) => {
     }
 };
 
-export const deletePostService = async (postId)=>{
+export const deletePostService = async (postId, user)=>{
     try {
+        const post = await findPostById(postId);
+        // console.log(post);
+        // console.log(user);
+        if(post.user.toString() !== user){
+            throw {
+                status: 403,
+                message: "You are not authorized to delete this post"
+            }
+        }
+
         const deletedPost = await deletePostById(postId);
         return deletedPost;
     } catch (error) {
         console.log(error);
+        throw error;
     }
 }
 

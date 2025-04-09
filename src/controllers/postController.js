@@ -1,4 +1,5 @@
 import { createPostService, deletePostService, getAllPostsService, updatePostService } from "../services/postService.js";
+import { checkIfUserExistsService } from "../services/userService.js";
 
 export const createPostController = async (req, res) => {
     const caption = req.body.caption;
@@ -61,7 +62,7 @@ export const getAllPostsController = async (req, res) => {
 
 export const deletePostController = async (req,res)=>{
     try {
-        const deletedPost = await deletePostService(req.params.id);
+        const deletedPost = await deletePostService(req.params.id,req.user.id);
         if(!deletedPost) {
             return res.status(404).json({
                 success: false,
@@ -75,6 +76,12 @@ export const deletePostController = async (req,res)=>{
         })
     } catch (error) {
         console.log(error);
+        if(error.status){
+            return res.status(error.status).json({
+                success: false,
+                message: error.message
+            })
+        }
         return res.status(500).json({
             success: false,
             message: "Internal server error",
