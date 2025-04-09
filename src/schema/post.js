@@ -10,7 +10,7 @@ const postSchema = new mongoose.Schema({
         required : true,
         minLength: 5
     },
-    userId : {
+    user : {
         type : mongoose.Schema.Types.ObjectId,
         ref: "User"
     }

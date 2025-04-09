@@ -17,7 +17,7 @@ export const createPostController = async (req, res) => {
         const newPost = await createPostService({
             imageUrl,
             caption,
-            userId : userDetails.id
+            user : userDetails.id
         });
 
         return res.status(201).json({

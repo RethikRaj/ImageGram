@@ -1,9 +1,9 @@
 import { countPosts, createPostRepository, deletePostById, findAllPosts, updatePostById } from "../repositories/postRepository.js";
 
 export const createPostService = async (createPostObject)=>{
-    const { imageUrl, caption, userId } = createPostObject; 
+    const { imageUrl, caption, user } = createPostObject; 
     try{
-        const newPost = await createPostRepository(imageUrl, caption,userId); 
+        const newPost = await createPostRepository(imageUrl, caption,user); 
         return newPost;
     }catch(error){
         console.log(error);
