@@ -1,4 +1,6 @@
-import { createUserRepository } from '../repositories/userRepository.js';
+import { createUserRepository, findUserByEmail } from '../repositories/userRepository.js';
+import bcrypt from 'bcrypt';
+import { generateJwtToken } from '../utils/jwt.js';
 
 export const signUpService = async (createUserObject)=>{
     
@@ -20,9 +22,39 @@ export const signUpService = async (createUserObject)=>{
         throw error;
         
     }
-    
-
-
     return newUser;
+}
+
+
+export const signInUserService = async (userDetails)=>{
+    try {
+        const user = await findUserByEmail(userDetails.email);
+        if(!user){
+            throw {
+                message: "User not found",
+                status: 404
+            }
+        }
+
+        // Now check whether the password matches the hashed password or not
+        const isPasswordMatch = await bcrypt.compare(userDetails.password,user.password);
+        if(!isPasswordMatch){
+            throw {
+                message: "Invalid password",
+                status: 401
+            }
+        }
+
+        const token = generateJwtToken({
+            id : user._id,
+            username : user.username,
+            email: user.email
+        })
+
+        return token;
+    } catch (error) {
+        // console.log("Service Error : "+ error.name + " " + error.message + " "+ error.code);
+        throw error;
+    }
 }
 
