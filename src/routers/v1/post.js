@@ -11,7 +11,7 @@ const router = express.Router();
 router.post("/", isAuthenticated,imageUploader, validate(zodPostSchema), createPostController);
 
 // Get all posts
-router.get("/", isAuthenticated,getAllPostsController);
+router.get("/", getAllPostsController);
 
 // delete post
 router.delete("/:id", isAuthenticated,deletePostController);
