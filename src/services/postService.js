@@ -36,6 +36,7 @@ export const getAllPostsService = async (limit , offset) => {
 
 export const deletePostService = async (postId, user)=>{
     try {
+        // Only if the post belongs to the user, then only delete the post
         const post = await findPostById(postId);
         // console.log(post);
         // console.log(user);
