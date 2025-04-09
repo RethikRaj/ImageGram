@@ -48,7 +48,8 @@ export const signInUserService = async (userDetails)=>{
         const token = generateJwtToken({
             id : user._id,
             username : user.username,
-            email: user.email
+            email: user.email,
+            role: user.role || "user"
         })
 
         return token;
