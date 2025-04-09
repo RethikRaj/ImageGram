@@ -10,11 +10,15 @@ export const createPostController = async (req, res) => {
     }
     const imageUrl = req.file.location;
 
+    const userDetails = req.user; // req.user is set in isAuthenticated middleware
+    console.log(req.user);
+
     try {
         const newPost = await createPostService({
             imageUrl,
             caption,
-        });// pass user id later
+            userId : userDetails.id
+        });
 
         return res.status(201).json({
             success: true,
