@@ -18,6 +18,13 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)); // Swagger 
 
 app.use('/api',apiRouter); // Any request starting with /api will be handled by apiRouter.
 
+// adding a ping request
+app.get("/ping",(req,res)=>{
+    return res.status(200).json({
+        message : "pong"
+    })
+})
+
 app.listen(PORT,()=>{
     console.log(`Server is running on port : ${PORT}`);
     // Connecting to DB
