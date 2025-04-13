@@ -5,12 +5,20 @@ import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerOptions from './utils/swaggerOptions.js';
 import rateLimiter from './middlewares/rateLimiter.js';
+import cors from 'cors';
 
 const app = express();
 const PORT = 3000;
 
 // rate limiting
 app.use(rateLimiter);
+
+// cors
+app.use(cors({
+    origin: 'http://localhost:5173', // allow only your frontend
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true // if you're using cookies or auth headers
+}));
 
 app.use(express.json());
 app.use(express.urlencoded());
