@@ -4,9 +4,13 @@ import apiRouter from './routers/apiRouter.js';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerOptions from './utils/swaggerOptions.js';
+import rateLimiter from './middlewares/rateLimiter.js';
 
 const app = express();
 const PORT = 3000;
+
+// rate limiting
+app.use(rateLimiter);
 
 app.use(express.json());
 app.use(express.urlencoded());
